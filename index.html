@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMO PBRI PULSE TEAM - เบอร์ 2</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-red: #8B0000;
+            --bright-red: #E60000;
+            --dark-bg: #0A0202;
+            --accent-gold: #D4AF37;
+            --light-gold: #FFD700;
+            --glass-bg: rgba(30, 5, 5, 0.65);
+            --glass-border: rgba(212, 175, 55, 0.35);
+            --text-light: #F8F9FA;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Particle Canvas */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Header / Navigation */
+        header {
+            background: rgba(10, 2, 2, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--accent-gold);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--accent-gold), #FFF, var(--light-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-left: 1.8rem;
+            font-weight: 400;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--light-gold);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--light-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            position: relative;
+        }
+
+        .logo-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .hero-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 2px solid var(--bright-red);
+            animation: pulse-ring 2s infinite;
+        }
+
+        .badge-number {
+            background: linear-gradient(135deg, var(--light-gold), var(--accent-gold), #B8860B);
+            color: #000;
+            font-size: 2.8rem;
+            font-weight: 800;
+            padding: 0.4rem 2.5rem;
+            border-radius: 50px;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+            letter-spacing: 2px;
+            animation: glow 2s infinite alternate;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin: 1rem 0;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+
+        .hero p.slogan {
+            font-size: 1.4rem;
+            color: var(--light-gold);
+            max-width: 800px;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Section Global */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 0.8rem auto 0;
+        }
+
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .glass-card:hover {
+            border-color: var(--light-gold);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.25);
+            transform: translateY(-8px);
+        }
+
+        /* Policy Section Grid */
+        .policy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .policy-card h3 {
+            color: var(--light-gold);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .policy-card ul {
+            list-style: none;
+        }
+
+        .policy-card ul li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+            font-weight: 300;
+        }
+
+        .policy-card ul li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--accent-gold);
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .team-card {
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-card .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-red), var(--accent-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: var(--light-gold);
+            border: 3px solid var(--accent-gold);
+            transition: transform 0.4s;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .team-card .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .team-card:hover .avatar {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .team-card h4 {
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .team-card p.name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .team-card p.campus {
+            font-size: 0.85rem;
+            color: #AAA;
+            margin-top: 0.3rem;
+        }
+
+        /* Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--dark-bg);
+            border: 2px solid var(--accent-gold);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            animation: zoomIn 0.3s ease;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            cursor: pointer;
+        }
+
+        /* Social Contact Buttons */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-social {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #FFF;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn-ig {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366);
+        }
+
+        .btn-tiktok {
+            background: #000;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .btn-fb {
+            background: #1877f2;
+        }
+
+        .btn-social:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Keyframe Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0;
+            }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            }
+
+            to {
+                box-shadow: 0 0 35px rgba(255, 215, 0, 0.9);
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(10, 2, 2, 0.9);
+            border-top: 1px solid var(--accent-gold);
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="particles-js"></div>
+
+    <header>
+        <div class="logo">SMO PBRI PULSE</div>
+        <nav>
+            <a href="#vision">วิสัยทัศน์</a>
+            <a href="#policy">นโยบาย</a>
+            <a href="#team">ทีมงาน</a>
+            <a href="#contact">ติดต่อ</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <div class="logo-container" data-aos="zoom-in">
+            <div class="pulse-ring"></div>
+            <img src="https://shorturl.asia/0iMWE" alt="SMO PBRI PULSE TEAM Logo" class="hero-img">
+        </div>
+        <div class="badge-number" data-aos="fade-up" data-aos-delay="200">เบอร์ 2</div>
+        <h1 data-aos="fade-up" data-aos-delay="400">SMO PBRI PULSE TEAM</h1>
+        <p class="slogan" data-aos="fade-up" data-aos-delay="600">
+            "ชีพจรแห่งผู้นำ สร้างคุณค่า พัฒนานักศึกษา เพื่อสถาบันและสังคม"
+        </p>
+    </div>
+
+    <section id="vision">
+        <h2 class="section-title" data-aos="fade-up">วิสัยทัศน์ & คำขวัญ</h2>
+
+        <div class="glass-card" style="margin-bottom: 2rem; border-left: 5px solid var(--light-gold);"
+            data-aos="fade-right">
+            <p style="font-size: 1.3rem; color: var(--light-gold); text-align: center; font-style: italic;">
+                <i class="fa-solid fa-quote-left"></i> ทุกจังหวะชีพจรของบรม คือ เสียงที่เราพร้อมรับฟังและเคียงข้าง <i
+                    class="fa-solid fa-quote-right"></i>
+            </p>
+            <p style="text-align: center; font-size: 0.95rem; opacity: 0.8; margin-top: 0.5rem;">
+                "Every beat of PBRI's pulse is a voice we are ready to listen to and stand by"
+            </p>
+        </div>
+
+        <div class="glass-card" data-aos="fade-left">
+            <h3 style="color: var(--accent-gold); margin-bottom: 1rem;"><i class="fa-solid fa-eye"></i> วิสัยทัศน์
+                (Vision)</h3>
+            <p style="line-height: 1.8; margin-bottom: 1rem;">
+                <strong>SMO PBRI PULSE TEAM</strong> คือทีมผู้นำนักศึกษาของสถาบันพระบรมราชชนก ผู้เป็น “ชีพจร” ขององค์กร
+                ขับเคลื่อนทุกกิจกรรมด้วยหัวใจแห่งการรับใช้ ภาวะผู้นำ ความคิดสร้างสรรค์ และความสามัคคี
+                เพื่อสร้างคุณค่าแก่เพื่อนนักศึกษา สถาบัน และสังคม
+            </p>
+            <p style="font-size: 0.95rem; opacity: 0.8; border-top: 1px solid rgba(212,175,55,0.2); padding-top: 1rem;">
+                SMO PBRI PULSE TEAM is the student leadership team of the Praboromarajchanok Institute, serving as the
+                "pulse" of the organization. Driven by a spirit of service, leadership, creativity, and unity, the team
+                aims to create meaningful value for fellow students, the institute, and society as a whole.
+            </p>
+        </div>
+    </section>
+
+    <section id="policy">
+        <h2 class="section-title" data-aos="fade-up">3 นโยบายขับเคลื่อน</h2>
+        <div class="policy-grid">
+
+            <div class="glass-card policy-card" data-aos="flip-left" data-aos-delay="100">
+                <h3><i class="fa-solid fa-heart-pulse"></i> 1. แกนหลัก PULSE (5 เสา)</h3>
+                <ul>
+                    <li><strong>P - Participation & Professionalism:</strong> มีส่วนร่วมสร้างมืออาชีพ</li>
+                    <li><strong>U - Unity:</strong> ความสามัคคีและเคารพกัน</li>
+                    <li><strong>L - Leadership:</strong> ฝึกผู้นำการเปลี่ยนแปลง</li>
+                    <li><strong>S - Service & Sustainability:</strong> จิตบริการยั่งยืน</li>
+                    <li><strong>E - Empowerment:</strong> พัฒนาศักยภาพรอบด้าน</li>
+                </ul>
+            </div>
+
+            <div class="glass-card policy-card" data-aos="flip-left" data-aos-delay="300">
+                <h3><i class="fa-solid fa-brain"></i> 2. ดูแลสุขภาพจิตนักศึกษา</h3>
+                <ul>
+                    <li><strong>Pulse Safe Space:</strong> พื้นที่ออนไลน์เซฟใจ ไร้ความเครียด</li>
+                    <li><strong>Google Form รับเรื่อง:</strong> แก้ไขปัญหา SOTUS & ระบบการเรียน</li>
+                    <li><strong>Mental Health Check:</strong> ส่งต่อผู้เชี่ยวชาญทันที</li>
+                    <li><strong>เครือข่าย วพบ. 30 แห่ง:</strong> สร้างมาตรฐานร่วมกันทั่วไทย</li>
+                </ul>
+            </div>
+
+            <div class="glass-card policy-card" data-aos="flip-left" data-aos-delay="500">
+                <h3><i class="fa-solid fa-hand-holding-heart"></i> 3. ขับเคลื่อนสถาบันและสังคม</h3>
+                <ul>
+                    <li><strong>จิตอาสาชุมชน:</strong> ออกหน่วยสุขภาพบริการประชาชน</li>
+                    <li><strong>คุณค่าพัฒนานักศึกษา:</strong> ส่งเสริมวิชาการ นวัตกรรม จริยธรรม</li>
+                    <li><strong>Humanized Healthcare:</strong> บุคลากรการแพทย์หัวใจมนุษย์</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="team">
+        <h2 class="section-title" data-aos="fade-up">สมาชิกคณะกรรมการ (20 ท่าน)</h2>
+        <div class="team-grid" id="teamGrid">
+        </div>
+    </section>
+
+    <div class="modal" id="teamModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <section id="contact" data-aos="zoom-in">
+        <h2 class="section-title">ช่องทางการติดต่อ</h2>
+        <div class="contact-links">
+            <a href="https://www.instagram.com/smopbripulse?igsh=MTNhamJ4MjVwZmtidA==" target="_blank"
+                class="btn-social btn-ig">
+                <i class="fa-brands fa-instagram fa-xl"></i> Instagram
+            </a>
+            <a href="https://www.tiktok.com/@smo.pbri.pulse.tea?_r=1&_t=ZS-98PDzpIcoGT" target="_blank"
+                class="btn-social btn-tiktok">
+                <i class="fa-brands fa-tiktok fa-xl"></i> TikTok
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61592493421079" target="_blank" class="btn-social btn-fb">
+                <i class="fa-brands fa-facebook fa-xl"></i> Facebook
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 SMO PBRI PULSE TEAM - เบอร์ 2 | สโมสรนักศึกษาสถาบันพระบรมราชชนก</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({ duration: 1000, once: true });
+
+        // Particles Effect Config
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 60, density: { enable: true, value_area: 800 } },
+                color: { value: "#D4AF37" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                move: { enable: true, speed: 1.5, direction: "top", out_mode: "out" }
+            }
+        });
+
+        // Team Data
+        const teamMembers = [
+            { role: "นายกสโมสร", name: "จิณณพัตส์ วิไลเนตร", nickname: "ฮาร์ท", campus: "วพบ. พระพุทธบาท", photo: "photos/นางสาวจิณณพัตส์ วิไลเนตร.jpg" },
+            { role: "อุปนายกคนที่ 1 (บริหาร)", name: "ยสธวัส นิธิรุจิพัชร์", nickname: "ไอซ์", campus: "วพบ.นพรัตน์วชิระ", photo: "photos/นายยสธวัส  นิธิรุจิพัชร์.jpg" },
+            { role: "อุปนายกคนที่ 2 (กิจกรรม)", name: "ชิตภณ บุญน้อม", nickname: "ขวัญเมือง", campus: "วพบ.ชลบุรี", photo: "photos/นายชิตภณ บุญน้อม.jpg" },
+            { role: "อุปนายกคนที่ 3 (วิชาการ)", name: "มนต์สิทธิ์  -", nickname: "จินอ๋อง/จิน", campus: "วพบ.ชัยนาท", photo: "photos/นายมนต์สิทธิ์ -.png" },
+            { role: "เหรัญญิก", name: "วรวิช ปานพรม", nickname: "ปิง", campus: "วพบ.ชัยนาท", photo: "photos/นายวรวิช ปานพรม_.png" },
+            { role: "ผู้ช่วยเหรัญญิก", name: "กัญญาภัทร อุตโรกุล", nickname: "หมิง", campus: "วพบ.อุดรธานี", photo: "photos/นางสาวกัญญาภัทร อุตโรกุล.png" },
+            { role: "ฝ่ายทะเบียนและประเมินผล", name: "อนงค์นาถ คำอ้อ", nickname: "น้ำผึ้ง", campus: "วพบ.กรุงเทพ", photo: "photos/นางสาวอนงค์นาถ คำอ้อ.jpg" },
+            { role: "ผู้ช่วยฝ่ายทะเบียนฯ", name: "พรชนก ยาน้อย", nickname: "ใบเตย", campus: "วพบ.กรุงเทพ", photo: "photos/นางสาวพรชนก ยาน้อย.jpg" },
+            { role: "ฝ่ายประชาสัมพันธ์ฯ", name: "กิตติยา ดัดตรงธรรม", nickname: "มีมี่", campus: "วพบ.ราชบุรี", photo: "photos/นางสาว กิตติยา ดัดตรงธรรม.png" },
+            { role: "ผู้ช่วยประชาสัมพันธ์ คนที่ 1", name: "รัตติญา เฉลิมทอง", nickname: "กัล", campus: "วพบ.ราชบุรี", photo: "photos/นางสาวรัตติญา เฉลิมทอง.png" },
+            { role: "ผู้ช่วยประชาสัมพันธ์ คนที่ 2", name: "สุดารัตน์ โดดสกุล", nickname: "สิงหา", campus: "วพบ.สวรรค์ประชารักษ์ฯ", photo: "photos/นางสุดารัตน์ โดดสกุล.png" },
+            { role: "ฝ่ายสวัสดิการและปฏิคม", name: "กันตพงศ์ ทองมา", nickname: "เจ้านาย", campus: "วพบ.นนทบุรี", photo: "photos/นายกันตพงศ์ ทองมา.jpg" },
+            { role: "ฝ่ายวิชาการและประกันคุณภาพฯ", name: "ฐิติรัตน์ สุขสมนิตย์", nickname: "กี้", campus: "วพบ.พระพุทธบาท", photo: "photos/นายฐิติรัตน์ สุขสมนิตย์.jpg" },
+            { role: "ประธานส่งเสริมคุณธรรมฯ", name: "กมลวรรณ แก้วโกสุม", nickname: "เบนซ์", campus: "วพ.พระจอมเกล้า เพชรบุรี", photo: "photos/นางสาว กมลวรรณ แก้วโกสุม.jpg" },
+            { role: "ประธานชมรมจิตอาสาฯ", name: "ดาริณี ปัญญาบุตร", nickname: "ก้านหลิว", campus: "วพบ.สรรพสิทธิประสงค์", photo: "photos/นางสาวดาริณี ปัญญาบุตร.jpeg" },
+            { role: "ประธานฝ่ายทำนุบำรุงศิลปวัฒนธรรม", name: "กัญญาพัชร์ คชเจริญทรัพย์", nickname: "โม", campus: "วพบ.นนทบุรี", photo: "photos/นางสาว กัญญาพัชร์ คชเจริญทรัพย์.png" },
+            { role: "ประธานชมรมส่งเสริมสุขภาพฯ", name: "สุภาพร บุระคร", nickname: "ส้มส้ม", campus: "วพบ.โคราช", photo: "photos/นางสาวสุภาพร บุระคร .jpeg" },
+            { role: "ประธานชมรมภาษาต่างประเทศ", name: "ณัชชา ดาวกระจาย", nickname: "โดนัท", campus: "วพบ.สวรรค์ประชารักษ์ฯ", photo: "photos/นางสาวณัชชา ดาวกระจาย.jpg" },
+            { role: "เลขานุการ", name: "ภทรพรรณ สุขโชติ", nickname: "เอิร์ธ", campus: "วพบ.สระบุรี", photo: "photos/นางสาวภทรพรรณ สุขโชติ (เอิร์ธ).PNG" },
+            { role: "ผู้ช่วยเลขานุการ", name: "ธนวันต์ พุ่มพงษ์", nickname: "มิ้นท์ชี่", campus: "วพบ.ชัยนาท", photo: "photos/นางสาวธนวันต์ พุ่มพงษ์.jpg" }
+        ];
+
+        // Render Team Members
+        const teamGrid = document.getElementById('teamGrid');
+        teamMembers.forEach((member, index) => {
+            const card = document.createElement('div');
+            card.className = 'glass-card team-card';
+            card.setAttribute('data-aos', 'fade-up');
+            card.setAttribute('data-aos-delay', (index % 5) * 100);
+            card.onclick = () => openModal(member);
+
+            card.innerHTML = `
+                <div class="avatar">
+                    <img src="${member.photo}" alt="${member.name}" onerror="this.parentElement.innerHTML='<i class=\'fa-solid fa-user-doctor\'></i>'">
+                </div>
+                <h4>${member.role}</h4>
+                <p class="name">${member.name}</p>
+                <p style="color: var(--light-gold);">(${member.nickname})</p>
+                <p class="campus">${member.campus}</p>
+            `;
+            teamGrid.appendChild(card);
+        });
+
+        // Modal Functionality
+        function openModal(member) {
+            const modal = document.getElementById('teamModal');
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <div class="avatar" style="width:130px; height:130px; font-size:2.5rem; margin:0 auto 1.5rem; border: 3px solid var(--accent-gold); border-radius: 50%; overflow: hidden; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);">
+                    <img src="${member.photo}" alt="${member.name}" style="width:100%; height:100%; object-fit:cover; object-position:center top;" onerror="this.parentElement.innerHTML='<i class=\'fa-solid fa-user-doctor\'></i>'">
+                </div>
+                <h3 style="color: var(--accent-gold);">${member.role}</h3>
+                <h2 style="margin: 0.5rem 0;">${member.name} (${member.nickname})</h2>
+                <p style="color: var(--light-gold); font-size: 1.1rem; margin-top: 0.5rem;">${member.campus}</p>
+                <hr style="border-color: rgba(212,175,55,0.3); margin: 1.5rem 0;">
+                <p style="font-weight: 300; opacity: 0.9;">"พร้อมรับฟัง เคียงข้าง และขับเคลื่อนเพื่อนักศึกษาบรมทุกคน"</p>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('teamModal').style.display = 'none';
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('teamModal');
+            if (event.target == modal) closeModal();
+        }
+    </script>
+</body>
+
+</html>
